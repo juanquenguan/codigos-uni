@@ -31,6 +31,7 @@ def adjunta(matriz):
     for i in (len(matriz)):
         fila = []
         for j in (len(matriz)):
-            fila.append((-1)**(i+j)*determinante(menorIJ(matriz,i,j)))
+            print("taka taki")
+            #fila.append((-1)**(i+j)*determinante(menorIJ(matriz,i,j)))
         matrizResultante.append(fila)
     return matrizResultante
