@@ -23,10 +23,10 @@ public class punto1 {
         char moneda = '$';      // símbolo de la moneda
 
         System.out.print("¿Cuántos ítems desea ingresar?: ");
-        int n = scanner.nextInt();
+        int cantidadItems = scanner.nextInt();
         scanner.nextLine(); // limpiar buffer
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < cantidadItems; i++) {
             System.out.println("Ítem " + (i + 1));
             System.out.print("Nombre: ");
             String nombre = scanner.nextLine();
@@ -36,15 +36,16 @@ public class punto1 {
             double precio = scanner.nextDouble();
             scanner.nextLine();
 
-            if (cantidad > 0 && precio > 0) {
+            if (cantidad > 0 && precio > 0) {// validacion de datos
                 double subTotal = calcularSubtotal(cantidad, precio);
                 System.out.println(formatearNombre(nombre) + " -> Subtotal: " + moneda + subTotal);
-                total += subTotal;
-                itemsValidos++;
+                total += subTotal;//contador del total
+                itemsValidos++;//contador de ítems válidos
             } else {
                 System.out.println("Datos inválidos, ítem rechazado.");
             }
         }
+        //Imprimir resultados finales
         System.out.println("Ítems válidos: " + itemsValidos);
         System.out.println("Total a pagar: " + moneda + total);
     }

@@ -6,13 +6,20 @@
 import java.util.*;
 
 public class punto4 {
+
+
+    // Método que valida si una expresión está balanceada
     public static boolean validar(String expr) {
         Deque<Character> pila = new ArrayDeque<>();
+        // Mapa con los pares de cierre/apertura
         Map<Character, Character> pares = Map.of(')', '(', '}', '{', ']', '[');
 
         for (char cadena : expr.toCharArray()) {
-            if (pares.containsValue(cadena)) pila.push(cadena);
+            if (pares.containsValue(cadena)) {
+                pila.push(cadena);// si es apertura, lo metemos a la pila
+            }
             else if (pares.containsKey(cadena)) {
+                // si es cierre, verificamos que coincida con el último abierto
                 if (pila.isEmpty() || pila.pop() != pares.get(cadena)) return false;
             }
         }
