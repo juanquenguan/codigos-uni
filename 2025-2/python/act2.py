@@ -167,3 +167,62 @@ def gaussiana(matriz):
 
     
     return A
+
+def gaussJordan(M):
+    n = len(M)
+
+    for i in range(n):
+        # 1. Pivotear si el pivote es 0
+        if M[i][i] == 0:
+            for k in range(i + 1, n):
+                if M[k][i] != 0:
+                    M = intercambioFilas(M, i, k)
+                    break
+
+        # 2. Normalizar fila para que pivote sea 1
+        pivote = M[i][i]
+        if pivote != 0:
+            M = filaPorEscalar(M, 1 / pivote, i)
+
+        # 3. Hacer ceros en las demás filas
+        for k in range(n):
+            if k != i:
+                if M[k][i] != 0:
+                    factor = -M[k][i]
+                    M = restaFilas(M, i, factor, k)
+
+    return M
+
+
+def resolverSistema(A, B):
+    n = len(A)
+
+    # Asegurar que B sea una matriz columna
+    if not isinstance(B[0], list):
+        nuevaB = []
+        for b in B:
+            nuevaB.append([b])
+        B = nuevaB
+
+    # Construir la matriz aumentada [A | B]
+    M = []
+    for i in range(n):
+        fila = []
+        for elemento in A[i]:
+            fila.append(elemento)
+        for elemento in B[i]:
+            fila.append(elemento)
+        M.append(fila)
+
+    # Aplicar Gauss-Jordan
+    M = gaussJordan(M)
+
+    # Extraer la parte derecha (X)
+    X = []
+    for fila in M:
+        parteDerecha = []
+        for j in range(n, len(fila)):
+            parteDerecha.append(fila[j])
+        X.append(parteDerecha)
+
+    return X
